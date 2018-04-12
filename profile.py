@@ -120,10 +120,18 @@ if __name__ == "__main__":
     decomp = SSA(gpp,400,groups)
     # output the extream values
     residuals = gpp-decomp.sum(axis=0)
+    # print the hist of the residuals
+    '''
+    n, bins, patches = plt.hist(residuals)
+    plt.show()
+    '''
+    # print the top 10 extreme values
+    '''
     x = np.absolute(residuals)
     ix  = np.argsort(x)
     for i in range(len(ix)-1, len(ix)-11, -1):
         print(t[ix[i]].date(), residuals[ix[i]])
+    '''
     # plot the result
     fig,axs = plt.subplots(nrows=len(groups)+2,tight_layout=True)
     axs[0].plot(t,gpp,'-')
@@ -136,3 +144,5 @@ if __name__ == "__main__":
     axs[2].set_ylabel("Month")
     axs[3].set_ylabel("Residual")
     plt.show()
+    
+    
