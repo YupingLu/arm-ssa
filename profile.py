@@ -132,6 +132,19 @@ if __name__ == "__main__":
     for i in range(len(ix)-1, len(ix)-11, -1):
         print(t[ix[i]].date(), residuals[ix[i]])
     '''
+    # get 95% confidence interval, but the sample size is large. use 68–95–99.7 rule instead
+    mu = np.mean(residuals)
+    sigma = np.std(residuals)
+    #SE = sigma / np.sqrt(len(residuals))
+    ci0 = mu - 3 * sigma
+    ci1 = mu + 3 * sigma
+    #print the outcomes
+    #print('99.7% confidence inverval:', ci0, ci1, residuals.min(), residuals.max())
+    #print the outliers
+    for i in range(len(residuals)):
+        if residuals[i] < ci0 or residuals[i] > ci1:
+            print(t[i].date(), residuals[i])
+
     # plot the result
     fig,axs = plt.subplots(nrows=len(groups)+2,tight_layout=True)
     axs[0].plot(t,gpp,'-')
@@ -139,6 +152,11 @@ if __name__ == "__main__":
     for g in range(len(groups)+1):
         axs[g].plot(t,decomp[g],'-')
     axs[-1].plot(t,gpp-decomp.sum(axis=0),'-')
+    Y1 = [ci0] * len(t)
+    Y2 = [ci1] * len(t)
+    #axs[-1].plot(t,Y1,lw=1)
+    #axs[-1].plot(t,Y2,lw=1)
+    axs[-1].fill_between(t, Y1, Y2, alpha=0.5)
     axs[0].set_ylabel("Raw & Trend")
     axs[1].set_ylabel("Year")
     axs[2].set_ylabel("Month")
