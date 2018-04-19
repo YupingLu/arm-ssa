@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-# Check missing values and calculate the average values
+# Extract outliers using SSA method
 # Author: Yuping Lu <yupinglu89@gmail.com>
 # Date  : Mar 25 2018
+
+#load lib
 import sys
 import csv
 import numpy as np
@@ -104,9 +106,9 @@ def readCSVFile(path, name, begin, end):
 if __name__ == "__main__":
     # read data from csv file
     #path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E33_1993_2017.csv'
-    path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E1_1993_2017.csv'
-    begin = 1996
-    end = 2009
+    path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E38_1993_2017.csv'
+    begin = 2012
+    end = 2018
     var_name = 'temp_mean'
     var_dict = readCSVFile(path, var_name, begin, end)
     # compute SSA and extract residuals
