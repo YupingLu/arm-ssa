@@ -194,11 +194,22 @@ def plotRes(inst, begin, end):
         shape['line']['width'] = 0
         layout['shapes'].append(shape)
 
+    '''
     plotly.offline.plot({
         "data": data,
         "layout": layout
 
     }, filename = 'E'+inst+'-'+str(begin)+'-'+str(end-1)+'.html', show_link = False, auto_open = False)
+    '''
+    return x_t, xs1, xs2
+
+# Get the whole dates 2
+def getDates2(begin, end):
+    x = []
+    span = (end - begin).days + 1
+    for i in range(span):
+        x.append(begin + datetime.timedelta(i))
+    return x
 
 if __name__ == "__main__":
     # read data from csv file
@@ -209,5 +220,21 @@ if __name__ == "__main__":
     end = [2009,2009,2011,2009,2011,2012,2009,2018,2018,2018,2018,2011,2018,2009,2002,2010,2018,\
     2018,2018,2018,2018,2018,2018,2018]
 
+    a = 0
+    b = 0
     for i in range(len(inst)):
-        plotRes(inst[i], begin[i], end[i])
+        x_t, xs1, xs2 = plotRes(inst[i], begin[i], end[i])
+        dqr = set()  # dqr records
+        ssa = set(x_t)  # outliers using ssa
+        for idx in range(len(xs1)):
+            dqr = dqr | set(getDates2(xs1[idx], xs2[idx]))
+        # dates in ssa but not in dqr
+        a = a + len(ssa - dqr)
+        b = b + len(ssa)
+        p = len(ssa - dqr) / len(ssa)
+        print("E"+str(inst[i])+" not in dqr: ", '{:.1%}'.format(p))
+        print("E"+str(inst[i])+" in dqr: ", '{:.1%}'.format(1-p))
+        #print("E"+str(inst[i])+" in dqr: ", len(ssa & dqr) / len(ssa))
+    
+    print("Not in dqr: ", '{:.1%}'.format(a / b))
+    print("In dqr: ", '{:.1%}'.format(1 - a / b))
