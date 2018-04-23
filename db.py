@@ -62,7 +62,7 @@ def saveRes(inst):
     res.append(end)
     res_name = "E"+inst+".db.csv"
     np.savetxt(res_name, np.transpose(res), delimiter=",", comments="", fmt='%s', \
-            header="start_date, end_date")
+            header="start_date,end_date")
 
 if __name__ == "__main__":
     insts = [1, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 20, 21, 24, 25, 27, 31, 32, 33, 34, 35, 36, 37, 38]
