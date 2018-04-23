@@ -21,7 +21,7 @@ def query(sql):
     begin = []
     end = []
     try:
-        conn = psycopg2.connect("dbname='***' user='***' host='localhost' password='***'")
+        conn = psycopg2.connect("dbname='arm_all' user='yok' host='armdev-pgdb.ornl.gov' password='yok111'")
     except:
         print("Unable to connect to the database")
     cur = conn.cursor()
@@ -50,6 +50,7 @@ def saveRes(inst):
         WHERE
             vm.datastream = 'sgpmetE"""+inst+""".b1'
             AND vm.var_name = 'temp_mean'
+            AND vm.metric_value IN (3,4)
             AND description NOT IN(
                 'Test',
                 'test',
