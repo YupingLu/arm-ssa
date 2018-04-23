@@ -2,7 +2,7 @@
 # Extract outliers using SSA method
 # Results are visualized in plotly
 # Author: Yuping Lu <yupinglu89@gmail.com>
-# Date  : April 19 2018
+# Date  : April 23 2018
 
 #load libs
 import sys
@@ -105,13 +105,27 @@ def readCSVFile(path, name, begin, end):
                 res[date] = average[count]
     return res
 
-if __name__ == "__main__":
-    # read data from csv file
-    inst = 'E38'
-    begin = 2012
-    end = 2018
-    path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/'+inst+'_1993_2017.csv'
-    #path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/'+inst+'_1993_2017.csv'
+# read DQR records
+def readDB(path):
+    xs1 = []
+    xs2 = []
+    # start_date, end_date
+    # read all data
+    with open( path, 'r' ) as f:
+        reader = csv.DictReader(f)
+        for line in reader:
+            begin = datetime.datetime.strptime(line['start_date'], '%Y-%m-%d')
+            end = datetime.datetime.strptime(line['end_date'], '%Y-%m-%d')
+            xs1.append(begin)
+            xs2.append(end)
+    return xs1, xs2
+
+# use plotly to visualize the data
+def plotRes(inst, begin, end):
+    path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    #path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    path1 = '/Users/ylk/github/arm-ssa/db.records/E'+inst+'.db.csv'
+    #path1 = '/Users/yupinglu/github/arm-ssa/db.records/E'+inst+'.db.csv'
     
     var_name = 'temp_mean'
     var_dict = readCSVFile(path, var_name, begin, end)
@@ -162,15 +176,38 @@ if __name__ == "__main__":
     )
     data = [trace1, trace2]
     #data = [trace1, trace2, trace3, trace4]
+    # plot DQR records with shade regions
+    xs1, xs2 = readDB(path1)
+    layout = {'shapes':[], 'title':'E'+inst+'-'+str(begin)+'-'+str(end-1)}
+    for i in range(len(xs1)):
+        shape = {}
+        shape['type'] = 'rect'
+        shape['xref'] = 'x'
+        shape['yref'] = 'paper'
+        shape['x0'] = xs1[i]
+        shape['y0'] = 0
+        shape['x1'] = xs2[i]
+        shape['y1'] = 1
+        shape['fillcolor'] = '#d3d3d3'
+        shape['opacity'] = 0.2
+        shape['line'] = {}
+        shape['line']['width'] = 0
+        layout['shapes'].append(shape)
+
     plotly.offline.plot({
         "data": data,
-        "layout": go.Layout(title=inst+'-'+str(begin)+'-'+str(end))
+        "layout": layout
 
-    }, filename = inst+'-'+str(begin)+'-'+str(end)+'.html', show_link = False, auto_open = False)
+    }, filename = 'E'+inst+'-'+str(begin)+'-'+str(end-1)+'.html', show_link = False, auto_open = False)
 
+if __name__ == "__main__":
+    # read data from csv file
+    inst = ['1','3','4','5','6','7','8','9','11','13','15','20','21','24','25','27','31','32','33',\
+    '34','35','36','37','38']
+    begin = [1996,1997,1996,1997,1997,1996,1994,1994,1996,1994,1994,1994,2000,1996,1997,2004,2012,\
+    2012,2012,2012,2012,2012,2012,2012]
+    end = [2009,2009,2011,2009,2011,2012,2009,2018,2018,2018,2018,2011,2018,2009,2002,2010,2018,\
+    2018,2018,2018,2018,2018,2018,2018]
 
-
-
-
-    
-    
+    for i in range(len(inst)):
+        plotRes(inst[i], begin[i], end[i])
