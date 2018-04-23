@@ -21,7 +21,7 @@ def query(sql):
     begin = []
     end = []
     try:
-        conn = psycopg2.connect("dbname='arm_all' user='yok' host='armdev-pgdb.ornl.gov' password='yok111'")
+        conn = psycopg2.connect("dbname='***' user='***' host='localhost' password='***'")
     except:
         print("Unable to connect to the database")
     cur = conn.cursor()
