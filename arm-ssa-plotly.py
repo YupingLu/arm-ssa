@@ -122,10 +122,10 @@ def readDB(path):
 
 # use plotly to visualize the data
 def plotRes(inst, begin, end):
-    path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    #path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    path1 = '/Users/ylk/github/arm-ssa/db.records/E'+inst+'.db.csv'
-    #path1 = '/Users/yupinglu/github/arm-ssa/db.records/E'+inst+'.db.csv'
+    #path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    #path1 = '/Users/ylk/github/arm-ssa/db.records/E'+inst+'.db.csv'
+    path1 = '/Users/yupinglu/github/arm-ssa/db.records/E'+inst+'.db.csv'
     
     var_name = 'temp_mean'
     var_dict = readCSVFile(path, var_name, begin, end)
@@ -222,8 +222,17 @@ if __name__ == "__main__":
 
     a = 0
     b = 0
+    a1 = 0
+    b1 = 0
     for i in range(len(inst)):
         x_t, xs1, xs2 = plotRes(inst[i], begin[i], end[i])
+        b1 = b1 + len(xs1)
+        for idx in range(len(xs1)):
+            for j in x_t:
+                if j >= xs1[idx] and j <= xs2[idx]:
+                    a1 = a1 + 1
+                    break
+
         dqr = set()  # dqr records
         ssa = set(x_t)  # outliers using ssa
         for idx in range(len(xs1)):
@@ -238,3 +247,4 @@ if __name__ == "__main__":
     
     print("Not in dqr: ", '{:.1%}'.format(a / b))
     print("In dqr: ", '{:.1%}'.format(1 - a / b))
+    print("DQR covered by SSA: ", '{:.1%}'.format(a1 / b1))
