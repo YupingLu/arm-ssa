@@ -2,7 +2,7 @@
 # Extract outliers using SSA method
 # Results are visualized in plotly
 # Author: Yuping Lu <yupinglu89@gmail.com>
-# Date  : April 23 2018
+# Date  : April 30 2018
 
 #load libs
 import sys
@@ -121,13 +121,12 @@ def readDB(path):
     return xs1, xs2
 
 # use plotly to visualize the data
-def plotRes(inst, begin, end):
-    #path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    #path1 = '/Users/ylk/github/arm-ssa/db.records/E'+inst+'.db.csv'
-    path1 = '/Users/yupinglu/github/arm-ssa/db.records/E'+inst+'.db.csv'
+def plotRes(inst, begin, end, var_name):
+    path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    #path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    path1 = '/Users/ylk/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
+    #path1 = '/Users/yupinglu/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
     
-    var_name = 'temp_mean'
     var_dict = readCSVFile(path, var_name, begin, end)
     # compute SSA and extract residuals
     res = []
@@ -161,7 +160,7 @@ def plotRes(inst, begin, end):
         x = t,
         y = gpp,
         mode = 'lines',
-        name = 'temp_mean'
+        name = var_name
         )
     trace2 = go.Scatter(
         x = x_t,
@@ -194,13 +193,12 @@ def plotRes(inst, begin, end):
         shape['line']['width'] = 0
         layout['shapes'].append(shape)
 
-    '''
     plotly.offline.plot({
         "data": data,
         "layout": layout
 
     }, filename = 'E'+inst+'-'+str(begin)+'-'+str(end-1)+'.html', show_link = False, auto_open = False)
-    '''
+    
     return x_t, xs1, xs2
 
 # Get the whole dates 2
@@ -219,13 +217,13 @@ if __name__ == "__main__":
     2012,2012,2012,2012,2012,2012,2012]
     end = [2009,2009,2011,2009,2011,2012,2009,2018,2018,2018,2018,2011,2018,2009,2002,2010,2018,\
     2018,2018,2018,2018,2018,2018,2018]
-
+    var_name = 'vapor_pressure_mean'  #'temp_mean'
     a = 0
     b = 0
     a1 = 0
     b1 = 0
     for i in range(len(inst)):
-        x_t, xs1, xs2 = plotRes(inst[i], begin[i], end[i])
+        x_t, xs1, xs2 = plotRes(inst[i], begin[i], end[i], var_name)
         b1 = b1 + len(xs1)
         for idx in range(len(xs1)):
             for j in x_t:
