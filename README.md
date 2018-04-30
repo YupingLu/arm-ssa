@@ -1,5 +1,5 @@
 # arm-ssa
-Singular Spectrum Analysis to Detect Outliers in ARM Data. This is a univariate analysis method. You need to pick the variable first.
+Singular spectrum analysis to detect outliers in ARM data. This is a univariate analysis method. You need to pick the variable first.
 
 1. Calculate outliers and visualize the results
 ```
