@@ -13,8 +13,8 @@ import plotly
 import plotly.graph_objs as go
 
 inst = '38'
-#path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+#path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
 
 cols_to_use = [0,1,2,3,4,5]
 df = pd.read_csv(path, usecols=cols_to_use, na_values='None')
@@ -24,11 +24,19 @@ df.index = range(len(df))
 
 # standardization
 # axis is 0 (column) by default, independently standardize each feature
-X = scale(df[['atmos_pressure','temp_mean','rh_mean','vapor_pressure_mean','wspd_arith_mean']]) 
+data = df[['atmos_pressure','temp_mean','rh_mean','vapor_pressure_mean','wspd_arith_mean']]
+X = scale(data) 
 
 # run k-means
 model = KMeans(n_clusters=4)
 model.fit(X)
+
+# get the centroids
+'''
+data_std = np.asarray(np.std(data, axis=0))
+data_mean = np.asarray(np.mean(data, axis=0))
+print(model.cluster_centers_ * data_std + data_mean)
+'''
 
 # get the dates of 4 clusters
 cls1 = df['date'][model.labels_ == 0]
