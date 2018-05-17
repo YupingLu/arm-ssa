@@ -38,7 +38,7 @@ def query(sql):
 
 # save sql query results
 def saveRes(inst):
-    # sql command, switch variable here. (temp_mean, vapor_pressure_mean)
+    # sql command, switch variable here. ('temp_mean', 'vapor_pressure_mean', 'atmos_pressure', 'rh_mean', 'wspd_arith_mean')
     sql = """
         SELECT
             vm.start_date,
@@ -49,7 +49,8 @@ def saveRes(inst):
             dqr.dqrid = vm.id
         WHERE
             vm.datastream = 'sgpmetE"""+inst+""".b1'
-            AND vm.var_name = 'vapor_pressure_mean'
+            /*AND vm.var_name = 'wspd_arith_mean'*/
+            AND vm.var_name IN ('temp_mean', 'vapor_pressure_mean', 'atmos_pressure', 'rh_mean', 'wspd_arith_mean')
             AND vm.metric_value IN (3,4)
             AND description NOT IN(
                 'Test',
