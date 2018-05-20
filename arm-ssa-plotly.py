@@ -2,7 +2,9 @@
 # Extract outliers using SSA method
 # Results are visualized in plotly
 # Author: Yuping Lu <yupinglu89@gmail.com>
-# Date  : April 30 2018
+# Date : April 30 2018
+# Add precison and recall calculation
+# Date : may 19, 2018
 
 #load libs
 import sys
@@ -122,10 +124,10 @@ def readDB(path):
 
 # use plotly to visualize the data
 def plotRes(inst, begin, end, var_name):
-    path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    #path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    path1 = '/Users/ylk/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
-    #path1 = '/Users/yupinglu/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
+    #path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    #path1 = '/Users/ylk/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
+    path1 = '/Users/yupinglu/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
     
     var_dict = readCSVFile(path, var_name, begin, end)
     # compute SSA and extract residuals
@@ -192,13 +194,13 @@ def plotRes(inst, begin, end, var_name):
         shape['line'] = {}
         shape['line']['width'] = 0
         layout['shapes'].append(shape)
-
+    '''
     plotly.offline.plot({
         "data": data,
         "layout": layout
 
     }, filename = 'E'+inst+'-'+str(begin)+'-'+str(end-1)+'.html', show_link = False, auto_open = False)
-    
+    '''
     return x_t, xs1, xs2
 
 # Get the whole dates 2
@@ -217,32 +219,44 @@ if __name__ == "__main__":
     2012,2012,2012,2012,2012,2012,2012]
     end = [2009,2009,2011,2009,2011,2012,2009,2018,2018,2018,2018,2011,2018,2009,2002,2010,2018,\
     2018,2018,2018,2018,2018,2018,2018]
-    var_name = 'vapor_pressure_mean'  #'temp_mean'
-    a = 0
-    b = 0
-    a1 = 0
-    b1 = 0
+    # switch variable here. (temp_mean, vapor_pressure_mean, atmos_pressure, rh_mean, wspd_arith_mean)
+    var_name = 'wspd_arith_mean'
+    
+    TP = 0 # True positive: outliers in DQR
+    FP = 0 # False positive: outliers not in DQR
+    FN = 0 # False negative: undetected values in DQR
+    #TN = 0 # true negative: undetected values not in DQR
+    outliers = set() # store the dates of outliers
+
     for i in range(len(inst)):
         x_t, xs1, xs2 = plotRes(inst[i], begin[i], end[i], var_name)
-        b1 = b1 + len(xs1)
-        for idx in range(len(xs1)):
-            for j in x_t:
-                if j >= xs1[idx] and j <= xs2[idx]:
-                    a1 = a1 + 1
-                    break
 
         dqr = set()  # dqr records
         ssa = set(x_t)  # outliers using ssa
+        outliers |= ssa # set union
+
         for idx in range(len(xs1)):
-            dqr = dqr | set(getDates2(xs1[idx], xs2[idx]))
-        # dates in ssa but not in dqr
-        a = a + len(ssa - dqr)
-        b = b + len(ssa)
-        p = len(ssa - dqr) / len(ssa)
-        print("E"+str(inst[i])+" not in dqr: ", '{:.1%}'.format(p))
-        print("E"+str(inst[i])+" in dqr: ", '{:.1%}'.format(1-p))
-        #print("E"+str(inst[i])+" in dqr: ", len(ssa & dqr) / len(ssa))
-    
-    print("Not in dqr: ", '{:.1%}'.format(a / b))
-    print("In dqr: ", '{:.1%}'.format(1 - a / b))
-    print("DQR covered by SSA: ", '{:.1%}'.format(a1 / b1))
+            dqr |= set(getDates2(xs1[idx], xs2[idx]))
+
+        tmp_tp = len(dqr & ssa)
+        tmp_fp = len(dqr - ssa)
+        tmp_fn = len(ssa - dqr)
+        TP += tmp_tp
+        FP += tmp_fp
+        FN += tmp_fn
+        if tmp_tp + tmp_fp == 0:
+            print("E"+str(inst[i])+" precison is empty.")
+        else:
+            p = tmp_tp / (tmp_tp + tmp_fp)
+            print("E"+str(inst[i])+" precison: ", '{:.1%}'.format(p))
+        if tmp_tp + tmp_fn == 0:
+            print("E"+str(inst[i])+" recall is empty.")
+        else:
+            r = tmp_tp / (tmp_tp + tmp_fn)
+            print("E"+str(inst[i])+" recall: ", '{:.1%}'.format(r))
+
+    P = TP / (TP + FP)
+    R = TP / (TP + FN)
+    print("SSA precison: ", '{:.1%}'.format(P))
+    print("SSA recall: ", '{:.1%}'.format(R))
+    np.savetxt('ssa_outliers.txt', list(outliers), delimiter=",", comments="", fmt='%s')
