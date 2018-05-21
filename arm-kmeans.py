@@ -69,9 +69,18 @@ def plotKmeansRes(inst):
     # transform X to cluster-distance space
     X1 = model.transform(X)
     dist = np.sum(X1, axis=1)
-
+    # get 95% confidence interval, but the sample size is large. use 68–95–99.7 rule instead
+    mu = np.mean(dist)
+    sigma = np.std(dist)
+    ci1 = mu + 3 * sigma
+    x_t = []
+    y_outliers = []
+    for i in range(len(dist)):
+        if dist[i] > ci1:
+            x_t.append(df['date'][i])
+            y_outliers.append(dist[i])
     # the top 10 index of the longest distance
-    idx = dist.argsort()[-10:][::-1] 
+    #idx = dist.argsort()[-10:][::-1] 
 
     # Visualize the results
     trace1 = go.Scatter(
@@ -99,8 +108,8 @@ def plotKmeansRes(inst):
         name = 'cluster 4'
     )
     trace5 = go.Scatter(
-        x = df['date'][idx],
-        y = dist[idx],
+        x = x_t,
+        y = y_outliers,
         mode = 'markers',
         marker=dict(
             size='10',
@@ -120,7 +129,7 @@ def plotKmeansRes(inst):
 
     }, filename ='E'+inst+'.html', show_link = False, auto_open = False)
     '''
-    return df['date'][idx], xs1, xs2
+    return x_t, xs1, xs2
 
 # Get the whole dates 2
 def getDates2(begin, end):
