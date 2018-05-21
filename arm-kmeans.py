@@ -148,14 +148,13 @@ if __name__ == "__main__":
     FP = 0 # False positive: outliers not in DQR
     FN = 0 # False negative: undetected values in DQR
     #TN = 0 # true negative: undetected values not in DQR
-    outliers = set() # store the dates of outliers
 
     for inst in insts:
         x_t, xs1, xs2 = plotKmeansRes(inst)
 
         dqr = set()  # dqr records
         ks = set(x_t)  # outliers using kmeans
-        outliers |= ks # set union
+        np.savetxt('E'+str(inst)+'.txt', list(ks), delimiter=",", comments="", fmt='%s')
 
         for idx in range(len(xs1)):
             dqr |= set(getDates2(xs1[idx], xs2[idx]))
@@ -181,4 +180,3 @@ if __name__ == "__main__":
     R = TP / (TP + FN)
     print("kmeans precison: ", '{:.1%}'.format(P))
     print("kmeans recall: ", '{:.1%}'.format(R))
-    np.savetxt('kmeans_outliers.txt', list(outliers), delimiter=",", comments="", fmt='%s')

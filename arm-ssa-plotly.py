@@ -220,20 +220,19 @@ if __name__ == "__main__":
     end = [2009,2009,2011,2009,2011,2012,2009,2018,2018,2018,2018,2011,2018,2009,2002,2010,2018,\
     2018,2018,2018,2018,2018,2018,2018]
     # switch variable here. (temp_mean, vapor_pressure_mean, atmos_pressure, rh_mean, wspd_arith_mean)
-    var_name = 'temp_mean'
+    var_name = 'rh_mean'
     
     TP = 0 # True positive: outliers in DQR
     FP = 0 # False positive: outliers not in DQR
     FN = 0 # False negative: undetected values in DQR
     #TN = 0 # true negative: undetected values not in DQR
-    outliers = set() # store the dates of outliers
-
+    
     for i in range(len(inst)):
         x_t, xs1, xs2 = plotRes(inst[i], begin[i], end[i], var_name)
 
         dqr = set()  # dqr records
         ssa = set(x_t)  # outliers using ssa
-        outliers |= ssa # set union
+        np.savetxt('E'+str(inst[i])+'.txt', list(ssa), delimiter=",", comments="", fmt='%s')
 
         for idx in range(len(xs1)):
             dqr |= set(getDates2(xs1[idx], xs2[idx]))
@@ -259,4 +258,4 @@ if __name__ == "__main__":
     R = TP / (TP + FN)
     print("SSA precison: ", '{:.1%}'.format(P))
     print("SSA recall: ", '{:.1%}'.format(R))
-    np.savetxt('ssa_temp_mean_outliers.txt', list(outliers), delimiter=",", comments="", fmt='%s')
+    
