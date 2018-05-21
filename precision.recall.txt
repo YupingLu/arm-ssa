@@ -1,0 +1,369 @@
+temp_mean
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  0.0%
+E3 recall is empty.
+E4 precison:  0.0%
+E4 recall is empty.
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  48.5%
+E7 recall:  94.1%
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  56.8%
+E9 recall:  0.5%
+E11 precison:  58.2%
+E11 recall:  44.8%
+E13 precison:  6.1%
+E13 recall:  0.3%
+E15 precison:  18.0%
+E15 recall:  0.5%
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  0.0%
+E31 recall:  0.0%
+E32 precison:  0.0%
+E32 recall:  0.0%
+E33 precison:  44.4%
+E33 recall:  25.0%
+E34 precison:  0.0%
+E34 recall:  0.0%
+E35 precison:  0.0%
+E35 recall:  0.0%
+E36 precison:  0.0%
+E36 recall:  0.0%
+E37 precison:  0.0%
+E37 recall:  0.0%
+E38 precison:  33.3%
+E38 recall:  20.0%
+SSA precison:  16.0%
+SSA recall:  1.2%
+
+
+vapor_pressure_mean
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  0.0%
+E3 recall is empty.
+E4 precison:  0.0%
+E4 recall is empty.
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  38.9%
+E7 recall:  82.4%
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  28.9%
+E9 recall:  0.3%
+E11 precison:  65.7%
+E11 recall:  52.9%
+E13 precison:  25.0%
+E13 recall:  1.0%
+E15 precison:  21.3%
+E15 recall:  0.6%
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  0.0%
+E31 recall:  0.0%
+E32 precison:  28.6%
+E32 recall:  2.8%
+E33 precison:  25.0%
+E33 recall:  12.5%
+E34 precison:  0.0%
+E34 recall:  0.0%
+E35 precison:  15.4%
+E35 recall:  10.0%
+E36 precison:  10.0%
+E36 recall:  3.0%
+E37 precison:  60.0%
+E37 recall:  33.3%
+E38 precison:  9.1%
+E38 recall:  4.0%
+SSA precison:  20.7%
+SSA recall:  1.4%
+
+
+atmos_pressure
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  0.0%
+E3 recall is empty.
+E4 precison:  0.0%
+E4 recall is empty.
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  0.0%
+E7 recall is empty.
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  0.0%
+E9 recall:  0.0%
+E11 precison:  0.0%
+E11 recall:  0.0%
+E13 precison:  0.0%
+E13 recall:  0.0%
+E15 precison:  0.0%
+E15 recall is empty.
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  0.0%
+E31 recall:  0.0%
+E32 precison:  0.0%
+E32 recall is empty.
+E33 precison:  0.0%
+E33 recall is empty.
+E34 precison:  0.0%
+E34 recall is empty.
+E35 precison:  0.0%
+E35 recall is empty.
+E36 precison:  0.0%
+E36 recall is empty.
+E37 precison:  0.0%
+E37 recall:  0.0%
+E38 precison:  0.0%
+E38 recall:  0.0%
+SSA precison:  0.0%
+SSA recall:  0.0%
+
+
+rh_mean
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  0.0%
+E3 recall:  0.0%
+E4 precison:  0.0%
+E4 recall is empty.
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  31.1%
+E7 recall:  82.4%
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  18.2%
+E9 recall:  0.1%
+E11 precison:  3.6%
+E11 recall:  2.3%
+E13 precison:  4.2%
+E13 recall:  0.1%
+E15 precison:  47.4%
+E15 recall:  0.5%
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  0.0%
+E31 recall is empty.
+E32 precison:  11.1%
+E32 recall:  0.8%
+E33 precison:  57.1%
+E33 recall:  57.1%
+E34 precison:  0.0%
+E34 recall:  0.0%
+E35 precison:  33.3%
+E35 recall:  8.3%
+E36 precison is empty.
+E36 recall:  0.0%
+E37 precison:  100.0%
+E37 recall:  30.0%
+E38 precison:  25.0%
+E38 recall:  5.6%
+SSA precison:  14.8%
+SSA recall:  0.5%
+
+
+wspd_arith_mean
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  0.0%
+E3 recall is empty.
+E4 precison:  0.0%
+E4 recall:  0.0%
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  0.0%
+E7 recall is empty.
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  0.0%
+E9 recall:  0.0%
+E11 precison:  0.0%
+E11 recall:  0.0%
+E13 precison:  0.0%
+E13 recall:  0.0%
+E15 precison:  0.0%
+E15 recall:  0.0%
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  0.0%
+E31 recall:  0.0%
+E32 precison:  0.0%
+E32 recall:  0.0%
+E33 precison:  0.0%
+E33 recall:  0.0%
+E34 precison:  11.1%
+E34 recall:  12.5%
+E35 precison:  0.0%
+E35 recall:  0.0%
+E36 precison:  30.0%
+E36 recall:  23.1%
+E37 precison:  0.0%
+E37 recall:  0.0%
+E38 precison:  0.0%
+E38 recall:  0.0%
+SSA precison:  0.6%
+SSA recall:  1.5%
+
+
+kmeans
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  0.0%
+E3 recall:  0.0%
+E4 precison:  0.0%
+E4 recall:  0.0%
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  20.0%
+E7 recall:  82.4%
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  49.4%
+E9 recall:  0.8%
+E11 precison:  30.8%
+E11 recall:  31.9%
+E13 precison:  9.5%
+E13 recall:  0.9%
+E15 precison:  22.4%
+E15 recall:  1.4%
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  8.8%
+E31 recall:  9.1%
+E32 precison:  11.8%
+E32 recall:  2.7%
+E33 precison:  24.0%
+E33 recall:  23.1%
+E34 precison:  18.2%
+E34 recall:  25.0%
+E35 precison:  10.3%
+E35 recall:  10.7%
+E36 precison:  19.4%
+E36 recall:  3.0%
+E37 precison:  7.1%
+E37 recall:  5.7%
+E38 precison:  17.2%
+E38 recall:  15.2%
+kmeans precison:  12.9%
+kmeans recall:  1.9%
+
+
+combined
+E1 precison:  0.0%
+E1 recall is empty.
+E3 precison:  1.3%
+E3 recall:  6.2%
+E4 precison:  0.0%
+E4 recall:  0.0%
+E5 precison:  0.0%
+E5 recall is empty.
+E6 precison:  0.0%
+E6 recall is empty.
+E7 precison:  9.4%
+E7 recall:  94.1%
+E8 precison:  0.0%
+E8 recall is empty.
+E9 precison:  50.2%
+E9 recall:  2.3%
+E11 precison:  21.0%
+E11 recall:  49.6%
+E13 precison:  13.7%
+E13 recall:  3.3%
+E15 precison:  24.4%
+E15 recall:  3.7%
+E20 precison:  0.0%
+E20 recall is empty.
+E21 precison:  0.0%
+E21 recall:  0.0%
+E24 precison:  0.0%
+E24 recall is empty.
+E25 precison:  0.0%
+E25 recall is empty.
+E27 precison:  0.0%
+E27 recall is empty.
+E31 precison:  6.6%
+E31 recall:  15.2%
+E32 precison:  11.5%
+E32 recall:  6.0%
+E33 precison:  10.7%
+E33 recall:  23.1%
+E34 precison:  7.7%
+E34 recall:  25.0%
+E35 precison:  11.6%
+E35 recall:  28.6%
+E36 precison:  16.4%
+E36 recall:  5.5%
+E37 precison:  16.7%
+E37 recall:  31.4%
+E38 precison:  11.6%
+E38 recall:  24.2%
+Precison:  11.1%
+Recall:  4.1%
