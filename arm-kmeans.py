@@ -129,7 +129,8 @@ def plotKmeansRes(inst):
 
     }, filename ='E'+inst+'.html', show_link = False, auto_open = False)
     '''
-    return x_t, xs1, xs2
+    x_tt = [datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S') for x in x_t]
+    return x_tt, xs1, xs2
 
 # Get the whole dates 2
 def getDates2(begin, end):
@@ -154,11 +155,16 @@ if __name__ == "__main__":
 
         dqr = set()  # dqr records
         ks = set(x_t)  # outliers using kmeans
-        np.savetxt('E'+str(inst)+'.txt', list(ks), delimiter=",", comments="", fmt='%s')
+        #np.savetxt('E'+str(inst)+'.txt', list(ks), delimiter=",", comments="", fmt='%s')
 
         for idx in range(len(xs1)):
             dqr |= set(getDates2(xs1[idx], xs2[idx]))
-
+        '''
+        if len(dqr) != 0:
+            print(type(list(dqr)[0]))
+        if len(ks) != 0:
+            print(type(list(ks)[0]))
+        '''
         tmp_tp = len(dqr & ks)
         tmp_fp = len(ks - dqr)
         tmp_fn = len(dqr - ks)
