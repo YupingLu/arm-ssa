@@ -124,10 +124,10 @@ def readDB(path):
 
 # use plotly to visualize the data
 def plotRes(inst, begin, end, var_name):
-    #path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
-    #path1 = '/Users/ylk/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
-    path1 = '/Users/yupinglu/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
+    path = '/Users/ylk/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    #path = '/Users/yupinglu/github/arm-pearson/netcdf_year_viz/E'+inst+'_1993_2017.csv'
+    path1 = '/Users/ylk/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
+    #path1 = '/Users/yupinglu/github/arm-ssa/db.records/'+var_name+'/E'+inst+'.db.csv'
     
     var_dict = readCSVFile(path, var_name, begin, end)
     # compute SSA and extract residuals
@@ -220,7 +220,7 @@ if __name__ == "__main__":
     end = [2009,2009,2011,2009,2011,2012,2009,2018,2018,2018,2018,2011,2018,2009,2002,2010,2018,\
     2018,2018,2018,2018,2018,2018,2018]
     # switch variable here. (temp_mean, vapor_pressure_mean, atmos_pressure, rh_mean, wspd_arith_mean)
-    var_name = 'wspd_arith_mean'
+    var_name = 'temp_mean'
     
     TP = 0 # True positive: outliers in DQR
     FP = 0 # False positive: outliers not in DQR
@@ -239,8 +239,8 @@ if __name__ == "__main__":
             dqr |= set(getDates2(xs1[idx], xs2[idx]))
 
         tmp_tp = len(dqr & ssa)
-        tmp_fp = len(dqr - ssa)
-        tmp_fn = len(ssa - dqr)
+        tmp_fp = len(ssa - dqr)
+        tmp_fn = len(dqr - ssa)
         TP += tmp_tp
         FP += tmp_fp
         FN += tmp_fn
@@ -259,4 +259,4 @@ if __name__ == "__main__":
     R = TP / (TP + FN)
     print("SSA precison: ", '{:.1%}'.format(P))
     print("SSA recall: ", '{:.1%}'.format(R))
-    np.savetxt('ssa_outliers.txt', list(outliers), delimiter=",", comments="", fmt='%s')
+    np.savetxt('ssa_temp_mean_outliers.txt', list(outliers), delimiter=",", comments="", fmt='%s')
