@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Calculate the intersection of outliers from ssa and kmeans
 # Author: Yuping Lu <yupinglu89@gmail.com>
-# Date  : May 29 2018
+# Date  : May 31 2018
 
 #load libs
 import csv
@@ -49,50 +49,19 @@ if __name__ == "__main__":
     insts = ['1','3','4','5','6','7','8','9','11','13','15','20','21','24','25','27','31','32','33',\
     '34','35','36','37','38']
 
-    TP = 0 # True positive: outliers in DQR
-    FP = 0 # False positive: outliers not in DQR
-    FN = 0 # False negative: undetected values in DQR
-    #TN = 0 # true negative: undetected values not in DQR
+    ko = set() # store the kmeans outliers
+    so = set() # store the ssa outliers
     
     for inst in insts:
-        outliers = set() # store the dates of outliers
-        dqr = set() # dqr records
-
-        # read dqr records
-        xs1, xs2 = readDB(inst)
-        for idx in range(len(xs1)):
-            dqr |= set(getDates2(xs1[idx], xs2[idx]))
         # read outliers
-        outliers |= readOutliers('kmeans', inst)
-        outliers |= readOutliers('ssa_atmos_pressure', inst)
-        outliers |= readOutliers('ssa_rh_mean', inst)
-        outliers |= readOutliers('ssa_temp_mean', inst)
-        outliers |= readOutliers('ssa_vapor_pressure_mean', inst)
-        outliers |= readOutliers('ssa_wspd_arith_mean', inst)
-        '''
-        if len(dqr) != 0:
-            print(type(list(dqr)[0]))
-        if len(outliers) != 0:
-            print(type(list(outliers)[0]))
-        '''
-        tmp_tp = len(outliers & dqr)
-        tmp_fp = len(outliers - dqr)
-        tmp_fn = len(dqr - outliers)
-        TP += tmp_tp
-        FP += tmp_fp
-        FN += tmp_fn
-        if tmp_tp + tmp_fp == 0:
-            print("E"+str(inst)+" precison is empty.")
-        else:
-            p = tmp_tp / (tmp_tp + tmp_fp)
-            print("E"+str(inst)+" precison: ", '{:.1%}'.format(p))
-        if tmp_tp + tmp_fn == 0:
-            print("E"+str(inst)+" recall is empty.")
-        else:
-            r = tmp_tp / (tmp_tp + tmp_fn)
-            print("E"+str(inst)+" recall: ", '{:.1%}'.format(r))
-
-    P = TP / (TP + FP)
-    R = TP / (TP + FN)
-    print("Precison: ", '{:.1%}'.format(P))
-    print("Recall: ", '{:.1%}'.format(R))
+        ko |= readOutliers('kmeans', inst)
+        so |= readOutliers('ssa_atmos_pressure', inst)
+        so |= readOutliers('ssa_rh_mean', inst)
+        so |= readOutliers('ssa_temp_mean', inst)
+        so |= readOutliers('ssa_vapor_pressure_mean', inst)
+        so |= readOutliers('ssa_wspd_arith_mean', inst)
+    
+    print("Kmeans outlier size: ", len(ko))
+    print("SSA outlier size: ", len(so))
+    print("Intersection: ", len(ko & so))
+    print("Symmetric difference: ", len(ko ^ so))
