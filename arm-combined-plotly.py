@@ -161,17 +161,12 @@ def plotRes(inst, var_name, idx):
     plotly.offline.plot({
         "data": data,
         "layout": layout
-
     }, filename = 'E'+inst+'.'+str(idx)+'.html', show_link = False, auto_open = False)    
 
 if __name__ == "__main__":
-    '''
     inst = ['1','3','4','5','6','7','8','9','11','13','15','20','21','24','25','27','31','32','33',\
     '34','35','36','37','38']
     var_names = ['temp_mean', 'vapor_pressure_mean', 'atmos_pressure', 'rh_mean', 'wspd_arith_mean']
-    '''
-    inst = ['11']
-    var_names = ['temp_mean']
         
     for i in range(len(inst)):
         for j in range(len(var_names)):
